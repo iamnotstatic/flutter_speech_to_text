@@ -23,7 +23,6 @@ class _VoiceHomeState extends State<VoiceHome> {
   SpeechRecognition _speechRecognition;
   bool _isAvailable = false;
   bool _isListening = false;
-
   String resultText = "";
 
   @override
@@ -70,21 +69,39 @@ class _VoiceHomeState extends State<VoiceHome> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   FloatingActionButton(
-                    onPressed: () {},
                     child: Icon(Icons.cancel),
                     mini: true,
                     backgroundColor: Colors.deepOrange,
+                    onPressed: () {
+                      if (_isListening)
+                        _speechRecognition.cancel().then(
+                              (result) => setState(() {
+                                _isListening = result;
+                                resultText = "";
+                              }),
+                            );
+                    },
                   ),
                   FloatingActionButton(
-                    onPressed: () {},
                     child: Icon(Icons.mic),
+                    onPressed: () {
+                      if (_isAvailable && !_isListening)
+                        _speechRecognition
+                            .listen(locale: "en_US")
+                            .then((result) => print('$result'));
+                    },
                     backgroundColor: Colors.pink,
                   ),
                   FloatingActionButton(
-                    onPressed: () {},
-                    mini: true,
                     child: Icon(Icons.stop),
+                    mini: true,
                     backgroundColor: Colors.deepPurple,
+                    onPressed: () {
+                      if (_isListening)
+                        _speechRecognition.stop().then(
+                              (result) => setState(() => _isListening = result),
+                            );
+                    },
                   )
                 ],
               ),
