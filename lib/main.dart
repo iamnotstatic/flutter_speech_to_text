@@ -106,13 +106,16 @@ class _VoiceHomeState extends State<VoiceHome> {
                 ],
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   color: Colors.cyanAccent[100],
                   borderRadius: BorderRadius.circular(6.0),
                 ),
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                child: Text(resultText),
+                child: Text(
+                  resultText,
+                  style: TextStyle(fontSize: 20.0),
+                ),
               )
             ],
           ),
